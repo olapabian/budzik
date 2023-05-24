@@ -1,6 +1,7 @@
 module com.example.budzik {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens com.example.budzik to javafx.fxml;

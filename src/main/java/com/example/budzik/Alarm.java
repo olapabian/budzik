@@ -3,7 +3,7 @@ package com.example.budzik;
 public class Alarm {
     int Godzina;
     int Minuta;
-    String dniTygodnia;
+    String dniTygodnia="";
     boolean czyPowtarzac;
     double Glosnosc;
     String Nazwa;
@@ -17,14 +17,14 @@ public class Alarm {
     }
     @Override
     public String toString() {
-        return "Alarm{" +
-                "Godzina=" + Godzina +
-                ", Minuta=" + Minuta +
-                ", dniTygodnia='" + dniTygodnia + '\'' +
-                ", czyPowtarzac=" + czyPowtarzac +
-                ", Glosnosc=" + Glosnosc +
-                ", Nazwa='" + Nazwa + '\'' +
-                '}';
+        return
+                  Godzina +
+                ":" + Minuta +
+                " " + dniTygodnia + '\'' +
+                " powtarzanie: " + czyPowtarzac +
+                " Glosnosc: " + Glosnosc +
+                " Nazwa:" + Nazwa + '\''
+                ;
     }
 
     public Alarm() {

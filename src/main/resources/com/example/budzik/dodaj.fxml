@@ -114,8 +114,8 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="140.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
          <children>
-            <Button mnemonicParsing="false" onAction="#zapiszButtonPushed" text="Zapisz" />
-            <Button mnemonicParsing="false" onAction="#anulujButtonPushed" text="Anuluj" />
+            <Button fx:id="zapiszButton" mnemonicParsing="false" onAction="#zapiszButtonPushed" text="Zapisz" />
+            <Button fx:id="anulujButton" mnemonicParsing="false" onAction="#anulujButtonPushed" text="Anuluj" />
          </children>
       </HBox>
       <Label fx:id="glosnoscLabel" prefHeight="18.0" prefWidth="32.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="9" />

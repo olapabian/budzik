@@ -32,8 +32,9 @@ public class DodajController implements Initializable {
     @FXML private  Slider volumeSlider = new Slider(0, 100, 1);
     @FXML private TextField nazwa = new TextField();
     @FXML private Button zapiszButton;
+    @FXML private Button anulujButton;
     private ToggleGroup  Group; //grupa guziczkow ktore moze byc jeden z nich wcisniety
-    private HomeController homeController = new HomeController();
+    private HomeController homeController;
 
 
     @Override
@@ -64,35 +65,17 @@ public class DodajController implements Initializable {
         });
     }
     //funkcja po nacisnieciu zapisz
-    public void zapiszButtonPushed(ActionEvent event) throws IOException {
+    @FXML public void zapiszButtonPushed(ActionEvent event) throws IOException {
 
         sendInfoToHomeController();
-
-        // przelacza na widok dodawania alarmu
-        Parent dodajParent;
-        try {
-            dodajParent = FXMLLoader.load(getClass().getResource("budzik.fxml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene dodajScene = new Scene(dodajParent);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(dodajScene);
-        window.show();
+        Stage stage = (Stage) zapiszButton.getScene().getWindow();
+        stage.close();
     }
 
     //funkcja po nacisnieciu zapisz, ktora przelacza na widok dodawania alarmu
     public void anulujButtonPushed(ActionEvent event) throws IOException {
-        Parent dodajParent;
-        try {
-            dodajParent = FXMLLoader.load(getClass().getResource("budzik.fxml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Scene dodajScene = new Scene(dodajParent);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(dodajScene);
-        window.show();
+        Stage stage = (Stage) anulujButton.getScene().getWindow();
+        stage.close();
     }
 
     public void setMainController(HomeController controller) {
@@ -101,7 +84,6 @@ public class DodajController implements Initializable {
     //wysylanie info do HomeController
 
     private void sendInfoToHomeController() {
-        ArrayList<Alarm> Alarmy = new ArrayList<Alarm>();
         Alarm pomAlarm = new Alarm();
 
         //pobieranie godziny
@@ -113,7 +95,7 @@ public class DodajController implements Initializable {
         //pobieranie dni tygodnia
         if(ponCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="poniedzialek ";
             }
@@ -121,7 +103,7 @@ public class DodajController implements Initializable {
         }
         if(wtCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="wtorek ";
             }
@@ -129,7 +111,7 @@ public class DodajController implements Initializable {
         }
         if(srCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="środa ";
             }
@@ -137,7 +119,7 @@ public class DodajController implements Initializable {
         }
         if(czwCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="czwartek ";
             }
@@ -145,7 +127,7 @@ public class DodajController implements Initializable {
         }
         if(ptCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="piątek ";
             }
@@ -153,7 +135,7 @@ public class DodajController implements Initializable {
         }
         if(sobCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="sobota ";
             }
@@ -161,7 +143,7 @@ public class DodajController implements Initializable {
         }
         if(ndzCheckBox.isSelected())
         {
-            if(pomAlarm.dniTygodnia==null)
+            if(pomAlarm.dniTygodnia=="")
             {
                 pomAlarm.dniTygodnia="niedziela ";
             }
@@ -180,8 +162,10 @@ public class DodajController implements Initializable {
         //nazwa
         pomAlarm.Nazwa=nazwa.getText();
 
-        Alarmy.add(pomAlarm); //dodonie pomocniczego alarmu do listy
-        //System.out.println(Alarmy);
-        homeController.setListViewData(Alarmy); //wysylanie
+        if(homeController!=null)
+        {
+            homeController.setListData(pomAlarm); //wysylanie
+        }
+
     }
 }
